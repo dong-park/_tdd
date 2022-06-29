@@ -17,7 +17,7 @@ public class ExpiryDateCalculatorTest {
     ExpiryDateCalculator expiryDateCalculator = new ExpiryDateCalculator();
 
     private void assertExpiryDate(PayData payData, LocalDate endDate) {
-        assertEquals(expiryDateCalculator.expiry(payData), endDate);
+        assertEquals(expiryDateCalculator.calculrateExpiry(payData), endDate);
     }
 
     @Test
@@ -34,6 +34,10 @@ public class ExpiryDateCalculatorTest {
                 .payDate(LocalDate.of(2022, 6, 30))
                 .payAmount(10_000)
                 .build(), LocalDate.of(2022, 7, 30));
+        assertExpiryDate(PayData.builder()
+                .payDate(LocalDate.of(2022, 6, 15))
+                .payAmount(10_000)
+                .build(), LocalDate.of(2022, 7, 15));
     }
 
     @Test
@@ -76,7 +80,7 @@ public class ExpiryDateCalculatorTest {
                 .billingDateStart(LocalDate.of(2022, 1, 31))
                 .payDate(LocalDate.of(2022, 2, 28))
                 .payAmount(20_000)
-                .build(), LocalDate.of(2022, 4, 28));
+                .build(), LocalDate.of(2022, 4, 30));
     }
 
 }
